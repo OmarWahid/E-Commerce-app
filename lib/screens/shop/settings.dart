@@ -20,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is LoadingProfileData) {
           return const Center(child: CircularProgressIndicator());
-        }
+        } //
 
         return Padding(
           padding: const EdgeInsets.all(20.0),
