@@ -97,10 +97,15 @@ class LoginScreen extends StatelessWidget {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
+
+                          decoration:  InputDecoration(
                             border: OutlineInputBorder(),
                             prefixIcon: Icon(Icons.email_outlined),
                             labelText: 'Email',
+                            hintText: 'enter your email',
+                            hintStyle: TextStyle(color: Colors.grey),
+
+
                           ),
                         ),
                         const SizedBox(height: 15),
@@ -121,6 +126,8 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
+                            hintText: 'enter your password',
+                            hintStyle: TextStyle(color: Colors.grey),
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.lock_outline),
                             suffixIcon: IconButton(
