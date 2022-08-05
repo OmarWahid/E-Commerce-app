@@ -13,7 +13,7 @@ class ShopLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>ShopCubit()..getHomeData()..getCategoriesData()..getFavoriteData()..getProfileData(),
+      create: (context) =>ShopCubit()..getHomeData()..getCategoriesData()..getFavoriteData(),
       child: BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {
           if (state is SuccessLogoutData) {

@@ -26,24 +26,6 @@ class ShopCubit extends Cubit<ShopState> {
 
   int currentIndex = 0;
 
-  void signOut_(context) {
-    CacheHelper.removeData(key: 'token').then((value) {
-      if (value) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-          (route) => false,
-        );
-      }
-
-      emit(SuccessLogoutData());
-    }).onError((error, stackTrace) {
-      print(error);
-      emit(ErrorLogoutData());
-    });
-  }
 
   List<Widget> screens = [
     const ProductsScreen(),
@@ -142,47 +124,8 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
-  ShopLoginModel? UserDatas;
-  void getProfileData() {
-    emit(LoadingProfileData());
-    DioHelper.getData(
-      url: 'profile',
-      token: token,
-    ).then((value) {
-      UserDatas = ShopLoginModel.fromJson(value.data);
-      print(UserDatas!.data!.name);
-      emit(SuccessProfileData());
-    }).catchError((error) {
-      print(error.toString());
-      emit(ErrorProfileData());
-    });
-  }
 
-  void getUpdateData({
-  required String name,
-  required String email,
-  required String phone,
-   String? password,
-}) {
-    emit(LoadingUpdateData());
-    DioHelper.putData(
-      url: 'update-profile',
-      token: token,
-      data: {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'password': password,
-      },
-    ).then((value) {
-      UserDatas = ShopLoginModel.fromJson(value.data);
-      print(UserDatas!.data!.name);
-      emit(SuccessUpdateData(UserDatas!));
-    }).catchError((error) {
-      print(error.toString());
-      emit(ErrorUpdateData());
-    });
-  }
+
 
   SearchModel? searchModel;
   void getSearchData(String search) {

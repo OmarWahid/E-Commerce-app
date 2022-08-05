@@ -100,7 +100,7 @@ class FavoritesScreen extends StatelessWidget {
                       const SizedBox(
                         width: 3,
                       ),
-                      if (1 != 0)
+                      if ( model.product!.discount != 0)
                         Text(
                           '${model.product!.oldPrice!.round()}',
                           style: const TextStyle(

@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/model/login_model.dart';
-import 'package:shop_app/network/cache_helper.dart';
-import 'package:shop_app/network/dio_helper.dart';
-import 'package:shop_app/shared/component.dart';
 
 import '../cubit/states.dart';
+import '../model/login_model.dart';
+import '../network/cache_helper.dart';
+import '../network/dio_helper.dart';
+import '../shared/component.dart';
 
 class ShopLoginCubit extends Cubit<AppState> {
   ShopLoginCubit() : super(InitialState());

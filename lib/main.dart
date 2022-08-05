@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/cubit_profile/cubit_profile.dart';
 import 'package:shop_app/layout/shopLayout.dart';
 import 'package:shop_app/network/cache_helper.dart';
 import 'package:shop_app/network/dio_helper.dart';
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ShopLoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit()..getProfileData(),
         ),
       ],
       child: BlocConsumer<ShopCubit, ShopState>(

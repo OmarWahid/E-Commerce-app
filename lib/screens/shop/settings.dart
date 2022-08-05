@@ -1,152 +1,253 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit_shop/cubit_shop.dart';
-import 'package:shop_app/model/login_model.dart';
-import 'package:shop_app/shared/component.dart';
+import 'package:shop_app/cubit_profile/states_profile.dart';
+import 'package:shop_app/screens/shop/update_screen.dart';
 
-import '../../cubit_shop/states_shop.dart';
-import '../../shared/component.dart';
-import '../../shared/component.dart';
+import '../../cubit_profile/cubit_profile.dart';
 
-var controllerEmail = TextEditingController();
-var controllerPhone = TextEditingController();
-var controllerName = TextEditingController();
-
-var keyForm = GlobalKey<FormState>();
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopState>(
+    return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {
-        if(state is SuccessUpdateData){
-          ShopCubit.get(context).getProfileData();
+        if (state is SuccessProfileData) {
+     print( ProfileCubit.get(context).UserDatas!.data!.email) ;
         }
       },
       builder: (context, state) {
-        var model = ShopCubit.get(context).UserDatas;
+if(state is LoadingProfileData){
+  return const Center(child: CircularProgressIndicator());
 
-        controllerEmail.text = '${model!.data!.email}';
-        controllerPhone.text = '${model.data!.phone}';
-        controllerName.text = '${model.data!.name}';
+}
 
-        return (ShopCubit.get(context).UserDatas == null)
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 20),
-                  child: Form(
-                    key: keyForm,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: controllerName,
-                          onFieldSubmitted: (value) {},
-                          keyboardType: TextInputType.text,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your name';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.person),
-                            labelText: 'Name',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: controllerEmail,
-                          onFieldSubmitted: (value) {},
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.email_outlined),
-                            labelText: 'Email',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: controllerPhone,
-                          onFieldSubmitted: (value) {},
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your phone';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.phone_android_rounded),
-                            labelText: 'Phone',
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        if (state is LoadingUpdateData)
-                          LinearProgressIndicator(),
-                        const SizedBox(height: 25),
-                        Container(
-                          width: double.infinity,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () {
-                              ShopCubit.get(context).getUpdateData(
-                                name: controllerName.text,
-                                email: controllerEmail.text,
-                                phone: controllerPhone.text,
-                              );
-                            },
-                            child: const Text(
-                              'UPDATE',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        Container(
-                          width: double.infinity,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () {
-                              ShopCubit.get(context).signOut_(context);
-                            },
-                            child: const Text(
-                              'LOGOUT',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.white,
+                      backgroundImage: AssetImage(
+                          'assets/images/profile_1.jpg'),
                     ),
+                    CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.teal,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.white,
+                            ))),
+                  ],
+                ),
+                SizedBox(height: 10),
+                // ProfileCubit.get(context).UserDatas!.data!.name
+                Text(
+                  ProfileCubit.get(context).UserDatas!.data!.name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              );
+                // ProfileCubit.get(context).UserDatas!.data!.email
+                Text(ProfileCubit.get(context).UserDatas!.data!.email,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey,
+                    )),
+                SizedBox(height: 40),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => UpdateScreen(),
+                          ));
+                        },
+                        elevation: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person_outline,
+                              color: Colors.teal,
+                              size: 30,
+                            ),
+                            SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                'My Account',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios, color: Colors.teal),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {},
+                        elevation: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person_add_alt,
+                              color: Colors.teal,
+                              size: 30,
+                            ),
+                            SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                'Invite a Friend',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios, color: Colors.teal),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {},
+                        elevation: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.notifications_none_sharp,
+                              color: Colors.teal,
+                              size: 30,
+                            ),
+                            SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                'Notifications',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios, color: Colors.teal),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {},
+                        elevation: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.question_answer_outlined,
+                              color: Colors.teal,
+                              size: 30,
+                            ),
+                            SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                'Help & Support',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios, color: Colors.teal),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5F6F9),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          ProfileCubit.get(context).signOut_(context) ;
+                        },
+                        elevation: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Colors.teal,
+                              size: 30,
+                            ),
+                            SizedBox(width: 15),
+                            Expanded(
+                              child: Text(
+                                'Log Out',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.arrow_forward_ios, color: Colors.teal),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
