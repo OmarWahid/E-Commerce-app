@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/network/cache_helper.dart';
 import 'package:shop_app/screens/shop/search.dart';
 
 import '../cubit_shop/cubit_shop.dart';
 import '../cubit_shop/states_shop.dart';
-import '../screens/login/login.dart';
 
 class ShopLayout extends StatelessWidget {
   const ShopLayout({Key? key}) : super(key: key);
