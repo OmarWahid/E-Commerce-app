@@ -47,7 +47,6 @@ dependencies:
   flutter_native_splash: ^2.2.6
   google_fonts: ^3.0.1
   shimmer: ^2.0.0
-  flutter_zoom_drawer: ^3.0.3
 
 
 dev_dependencies:

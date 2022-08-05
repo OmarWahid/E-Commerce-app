@@ -155,7 +155,7 @@ class SettingsScreen extends StatelessWidget {
                           Fluttertoast.showToast(
                               msg: "Notifications !!",
                               toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
+                              gravity: ToastGravity.TOP,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.teal,
                               textColor: Colors.white,
@@ -231,20 +231,7 @@ class SettingsScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    // FlatButton(
-                                    //   onPressed: () {
-                                    //     Navigator.pop(context);
-                                    //   },
-                                    //   child: Text('No'),
-                                    // ),
-                                    // FlatButton(
-                                    //   onPressed: () {
-                                    //     Navigator.pop(context);
-                                    //     BlocProvider.of<ProfileCubit>(context)
-                                    //         .logout();
-                                    //   },
-                                    //   child: Text('Yes'),
-                                    // ),
+
                                   ],
                                 );
                               });
@@ -283,7 +270,64 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       child: MaterialButton(
                         onPressed: () {
-                          ProfileCubit.get(context).signOut_(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Logout',
+                                      style: TextStyle(
+                                        color: Colors.teal,
+                                      )),
+                                  content: Text(
+                                      'Are you sure you want to logout?'),
+                                  actionsAlignment: MainAxisAlignment.center,
+                                  actions: [
+                                    Container(
+                                      width: 100,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.teal,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          ProfileCubit.get(context).signOut_(context);
+
+                                        },
+                                        child: const Text(
+                                          'Yes',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 100,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.teal,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'No',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                         elevation: 0,
                         child: Row(

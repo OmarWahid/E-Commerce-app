@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/model/favorites_model.dart';
@@ -30,7 +29,7 @@ class FavoritesScreen extends StatelessWidget {
               )
             : const Center(
                 child: Text(
-                'No Favorites ‼',
+                '♻  No Favorites  ♻',
                 style: TextStyle(
                   fontSize: 25,
                 ),

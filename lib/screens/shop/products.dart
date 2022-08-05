@@ -108,11 +108,7 @@ class ProductsScreen extends StatelessWidget {
             ),
           ),
           LayoutBuilder(
-
             builder: (context, constraints) {
-              double width = constraints.maxWidth;
-              double height = constraints.maxHeight;
-
               return Container(
                 color: Colors.grey[300],
                 child: GridView.count(
@@ -122,8 +118,9 @@ class ProductsScreen extends StatelessWidget {
                   mainAxisSpacing: 1,
                   crossAxisSpacing: 1,
                   // 1/ 1.624  (width/2) / 331
-                  childAspectRatio: 1/ 1.624 ,
-                  children: List.generate(model!.data!.products.length, (index) {
+                  childAspectRatio: 1 / 1.624,
+                  children:
+                      List.generate(model!.data!.products.length, (index) {
                     return buildGridItem(model.data!.products[index], context);
                   }),
                 ),
