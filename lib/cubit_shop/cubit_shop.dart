@@ -12,8 +12,7 @@ import '../model/categories_model.dart';
 import '../model/login_model.dart';
 import '../model/search_model.dart';
 import '../model/shop_model.dart';
-import '../network/cache_helper.dart';
-import '../screens/login/login.dart';
+
 import '../screens/shop/cateogries.dart';
 import '../screens/shop/favorites.dart';
 import '../screens/shop/products.dart';

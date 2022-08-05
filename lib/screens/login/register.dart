@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit_shop/cubit_shop.dart';
 
-import '../../cubit/cubit.dart';
 import '../../cubit_shop/states_shop.dart';
 import '../../layout/shopLayout.dart';
 import '../../network/cache_helper.dart';

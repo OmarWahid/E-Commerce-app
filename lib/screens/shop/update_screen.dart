@@ -34,7 +34,7 @@ class UpdateScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text('My Account'),
           ),
-          body: false
+          body: (ProfileCubit.get(context).UserDatas == null)
               ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   child: Padding(
