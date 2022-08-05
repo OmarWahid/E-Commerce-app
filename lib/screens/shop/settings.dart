@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/cubit_profile/states_profile.dart';
 import 'package:shop_app/screens/shop/update_screen.dart';
 
 import '../../cubit_profile/cubit_profile.dart';
-
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -14,14 +14,13 @@ class SettingsScreen extends StatelessWidget {
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {
         if (state is SuccessProfileData) {
-     print( ProfileCubit.get(context).UserDatas!.data!.email) ;
+          print(ProfileCubit.get(context).UserDatas!.data!.email);
         }
       },
       builder: (context, state) {
-if(state is LoadingProfileData){
-  return const Center(child: CircularProgressIndicator());
-
-}
+        if (state is LoadingProfileData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
         return Padding(
           padding: const EdgeInsets.all(20.0),
@@ -34,8 +33,8 @@ if(state is LoadingProfileData){
                     CircleAvatar(
                       radius: 60,
                       backgroundColor: Colors.white,
-                      backgroundImage: AssetImage(
-                          'assets/images/profile_1.jpg'),
+                      backgroundImage:
+                          AssetImage('assets/images/profile_1.jpg'),
                     ),
                     CircleAvatar(
                         radius: 20,
@@ -76,9 +75,11 @@ if(state is LoadingProfileData){
                       ),
                       child: MaterialButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => UpdateScreen(),
-                          ));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateScreen(),
+                              ));
                         },
                         elevation: 0,
                         child: Row(
@@ -113,7 +114,10 @@ if(state is LoadingProfileData){
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: ()  {
+
+
+                        },
                         elevation: 0,
                         child: Row(
                           children: [
@@ -147,7 +151,17 @@ if(state is LoadingProfileData){
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Fluttertoast.showToast(
+                              msg: "Notifications !!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.teal,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
+                        },
                         elevation: 0,
                         child: Row(
                           children: [
@@ -181,7 +195,60 @@ if(state is LoadingProfileData){
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Help & Support',
+                                      style: TextStyle(
+                                       color: Colors.teal,
+
+                                      )),
+                                  content: Text(
+                                      'To contact us, please send us a message on www.Obama.com'),
+                                  actions: [
+                                    Center(
+                                      child: Container(
+                                        width: 100,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.teal,
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'OK',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // FlatButton(
+                                    //   onPressed: () {
+                                    //     Navigator.pop(context);
+                                    //   },
+                                    //   child: Text('No'),
+                                    // ),
+                                    // FlatButton(
+                                    //   onPressed: () {
+                                    //     Navigator.pop(context);
+                                    //     BlocProvider.of<ProfileCubit>(context)
+                                    //         .logout();
+                                    //   },
+                                    //   child: Text('Yes'),
+                                    // ),
+                                  ],
+                                );
+                              });
+                        },
                         elevation: 0,
                         child: Row(
                           children: [
@@ -216,7 +283,7 @@ if(state is LoadingProfileData){
                       ),
                       child: MaterialButton(
                         onPressed: () {
-                          ProfileCubit.get(context).signOut_(context) ;
+                          ProfileCubit.get(context).signOut_(context);
                         },
                         elevation: 0,
                         child: Row(
