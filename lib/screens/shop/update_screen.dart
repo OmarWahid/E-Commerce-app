@@ -18,9 +18,7 @@ class UpdateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopState>(
       listener: (context, state) {
-        if (state is SuccessUpdateData) {
-          ProfileCubit.get(context).getProfileData();
-        }
+
       },
       builder: (context, state) {
 
@@ -29,6 +27,7 @@ class UpdateScreen extends StatelessWidget {
         controllerEmail.text = '${model!.data!.email}';
         controllerPhone.text = '${model.data!.phone}';
         controllerName.text = '${model.data!.name}';
+
 
         return Scaffold(
           appBar: AppBar(
@@ -39,7 +38,7 @@ class UpdateScreen extends StatelessWidget {
               : SingleChildScrollView(
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 20),
+                        const EdgeInsetsDirectional.fromSTEB(20, 60, 20, 20),
                     child: Form(
                       key: keyForm,
                       child: Column(

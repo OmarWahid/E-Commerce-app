@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,14 +14,16 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {
-        if (state is SuccessProfileData) {
-          print(ProfileCubit.get(context).UserDatas!.data!.email);
-        }
+
+
       },
       builder: (context, state) {
         if (state is LoadingProfileData) {
           return const Center(child: CircularProgressIndicator());
         }
+        // final player = AudioPlayer();
+        final assetsAudioPlayer = AssetsAudioPlayer();
+
 
         return Padding(
           padding: const EdgeInsets.all(20.0),
@@ -115,7 +118,74 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       child: MaterialButton(
                         onPressed: ()  {
+                        showDialog(context: context, builder:  (context) {
+                          return AlertDialog(
 
+                            actionsPadding: EdgeInsetsDirectional.only(
+                              bottom: 10,),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            title: Text('Invite Friends !!',
+                                style: TextStyle(
+                                  color: Colors.teal,
+                                )),
+                            content: Text(
+                                'You don\'t have friends at all, Why press invite a friend ?!'),
+                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                            actions: [
+                              Container(
+                                width: 130,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.teal,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: MaterialButton(
+                                  onPressed: ()  {
+                                    assetsAudioPlayer.open(
+                                      Audio("assets/Lonely.wav"),
+                                    );
+                                    },
+                                  child: const Text(
+                                    'Lonely 🥰',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 130,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.teal,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    assetsAudioPlayer.pause();
+                                    Navigator.pop(context);
+
+
+
+                                  },
+                                  child: const Text(
+                                    'Okey 🙂',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+
+                        );
 
                         },
                         elevation: 0,
@@ -200,6 +270,10 @@ class SettingsScreen extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
+                                  actionsPadding: EdgeInsetsDirectional.only(
+                                    bottom: 10,),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)),
                                   title: Text('Help & Support',
                                       style: TextStyle(
                                        color: Colors.teal,
@@ -274,13 +348,17 @@ class SettingsScreen extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)),
+                                  actionsPadding: EdgeInsetsDirectional.only(
+                                      bottom: 10,),
                                   title: Text('Logout',
                                       style: TextStyle(
                                         color: Colors.teal,
                                       )),
                                   content: Text(
                                       'Are you sure you want to logout?'),
-                                  actionsAlignment: MainAxisAlignment.center,
+                                  actionsAlignment: MainAxisAlignment.spaceEvenly,
                                   actions: [
                                     Container(
                                       width: 100,

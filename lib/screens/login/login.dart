@@ -1,13 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/screens/login/register.dart';
-
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../layout/shopLayout.dart';
 import '../../network/cache_helper.dart';
 import '../../shared/component.dart';
+import '../register/shop_register_screen.dart';
 
 var controllerEmail = TextEditingController();
 var controllerPassword = TextEditingController();
@@ -189,7 +188,7 @@ class LoginScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const RegisterScreen(),
+                                         RegisterScreen_(),
                                   ),
                                 );
                               },

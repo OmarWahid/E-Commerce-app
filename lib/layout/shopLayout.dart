@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/screens/shop/search.dart';
 
+import '../cubit_profile/cubit_profile.dart';
 import '../cubit_shop/cubit_shop.dart';
 import '../cubit_shop/states_shop.dart';
 
@@ -10,15 +11,25 @@ class ShopLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>ShopCubit()..getHomeData()..getCategoriesData()..getFavoriteData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+          ShopCubit()
+            ..getHomeData()
+            ..getCategoriesData()
+            ..getFavoriteData(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit()..getProfileData(),
+        ),
+      ],
       child: BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {
           if (state is SuccessLogoutData) {
             ShopCubit
                 .get(context)
                 .currentIndex = 0;
-
           }
         },
         builder: (context, state) {

@@ -9,7 +9,6 @@ import 'package:shop_app/shared/component.dart';
 
 import '../model/Change_Fav_model.dart';
 import '../model/categories_model.dart';
-import '../model/login_model.dart';
 import '../model/search_model.dart';
 import '../model/shop_model.dart';
 
@@ -125,7 +124,6 @@ class ShopCubit extends Cubit<ShopState> {
 
 
 
-
   SearchModel? searchModel;
   void getSearchData(String search) {
     emit(LoadingSearchData());
@@ -142,41 +140,6 @@ class ShopCubit extends Cubit<ShopState> {
       print(error.toString());
       emit(ErrorSearchData());
     });
-  }
-
-
-  ShopLoginModel? registerModel;
-  void getRegisterData({
-  required String name,
-  required String email,
-  required String password,
-    required String phone,
-}) {
-    emit(LoadingRegisterData());
-    DioHelper.postData(
-      url: 'register',
-      data: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'phone': phone,
-      }
-    ).then((value) {
-      registerModel = ShopLoginModel.fromJson(value.data);
-      emit(SuccessRegisterData(registerModel!));
-    }).catchError((error) {
-      print(error.toString());
-      emit(ErrorRegisterData());
-    });
-  }
-
-  bool isPass = true;
-  IconData icon = Icons.visibility_outlined;
-
-  void changeVisibilityPass() {
-    isPass = !isPass;
-    icon = isPass ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(ChangeRegisterPassVisibilityState());
   }
 
 

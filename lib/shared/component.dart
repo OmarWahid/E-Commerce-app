@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../model/login_model.dart';
-import '../network/cache_helper.dart';
-import '../screens/login/login.dart';
-
 void showToast ({
   required String message,
   required ToastState state,
@@ -16,7 +12,7 @@ void showToast ({
       timeInSecForIosWeb: 5,
       backgroundColor: ChangeColor(state),
       textColor: Colors.white,
-      fontSize: 16.0);
+      fontSize: 17.0);
 }
 enum ToastState {SUCCESS, ERROR , WARNING}
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/cubit_profile/states_profile.dart';
 
 import '../model/login_model.dart';
@@ -68,6 +69,16 @@ class ProfileCubit extends Cubit<ProfileStates> {
     ).then((value) {
       UserDatas = ShopLoginModel.fromJson(value.data);
       print(UserDatas!.data!.name);
+      Fluttertoast.showToast(
+          msg: "Update Successfully ✔",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
       emit(SuccessUpdateData(UserDatas!));
     }).catchError((error) {
       print(error.toString());
