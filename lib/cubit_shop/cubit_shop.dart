@@ -34,14 +34,7 @@ class ShopCubit extends Cubit<ShopState> {
 
   void changeScreen(int index) {
     currentIndex = index;
-    // if(currentIndex == 2)
-    //   {
-    //     getFavoriteData();
-    //   }
-    // if(currentIndex == 3)
-    //   {
-    //     getProfileData();
-    //   }
+
     emit(changeIndexButton());
   }
 

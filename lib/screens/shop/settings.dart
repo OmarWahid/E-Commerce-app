@@ -6,6 +6,7 @@ import 'package:shop_app/cubit_profile/states_profile.dart';
 import 'package:shop_app/screens/shop/update_screen.dart';
 
 import '../../cubit_profile/cubit_profile.dart';
+import '../../shared/component.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
         }
         // final player = AudioPlayer();
         final assetsAudioPlayer = AssetsAudioPlayer();
-
+        model= ProfileCubit.get(context).UserDatas;
 
         return Padding(
           padding: const EdgeInsets.all(20.0),

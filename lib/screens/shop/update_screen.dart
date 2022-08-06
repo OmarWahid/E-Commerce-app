@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit_shop/cubit_shop.dart';
-
 import '../../cubit_profile/cubit_profile.dart';
-import '../../cubit_shop/states_shop.dart';
+import '../../cubit_profile/states_profile.dart';
+import '../../shared/component.dart';
 
 var controllerEmail = TextEditingController();
 var controllerPhone = TextEditingController();
@@ -16,18 +15,19 @@ class UpdateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopState>(
+    return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {
 
       },
       builder: (context, state) {
+        if (state is LoadingProfileData) {
+          return Scaffold(body: const Center(child: CircularProgressIndicator()));
+        }
 
-       var model = ProfileCubit.get(context).UserDatas;
 
-        controllerEmail.text = '${model!.data!.email}';
+        controllerEmail.text = '${model.data!.email}';
         controllerPhone.text = '${model.data!.phone}';
         controllerName.text = '${model.data!.name}';
-
 
         return Scaffold(
           appBar: AppBar(
